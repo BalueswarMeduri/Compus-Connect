@@ -16,10 +16,13 @@ body {
 nav {
     height: 4rem;
     width: 100vw;
-    /* background-color: var(--black); */
+    background-color: var(--black);
     color: var(--white);
     display: flex;
     border-bottom: 1px solid #636363;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 .svgpro{
     border-radius: 50%;
