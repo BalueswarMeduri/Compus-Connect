@@ -1,9 +1,10 @@
+import UserInput from '@/components/Problem/Pro'
 import React from 'react'
 
 const Problem = () => {
   return (
     <div>
-        problem
+        <UserInput/>
     </div>
   )
 }

@@ -8,6 +8,8 @@ import Login from "./Pages/Login";
 import Problem from "./Pages/Problem";
 import CabinFinder from "./Pages/CabinFinder";
 import About from "./Pages/About";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import Hist from "./Pages/Hist";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +30,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/CabinFinder",
-        element: <CabinFinder/>
+        element: <CabinFinder />,
       },
       {
         path: "/About",
-        element: <About/>
+        element: <About />,
+      },
+      {
+        path: "/History",
+        element: <Hist />,
       },
     ],
   },
@@ -40,6 +46,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <GoogleOAuthProvider clientId="206695336293-47kff57p781b5o3pc7vh68bkrkdiq0je.apps.googleusercontent.com">
+      <RouterProvider router={router} />
+    </GoogleOAuthProvider>
   </StrictMode>
 );

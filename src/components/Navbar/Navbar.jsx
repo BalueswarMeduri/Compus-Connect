@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './Navbar.css'
 import image from '../../assets/cpc.png';
-import { Button } from "../ui/button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,11 +31,16 @@ const Navbar = () => {
             <Link to="/About">About</Link>
           </li>
           <li className={isOpen ? "fade" : ""}>
-            <Link to="/Contact">Contact</Link>
+            <Link to="/Problem">Problem</Link>
           </li>
           <li className={isOpen ? "fade" : ""}>
-            {/* <button className="btn font-bold"><Link to="/Login">Login</Link></button> */}
-            <Button className="bg-[var(--green)]">Login</Button>
+            <Link to="/CabinFinder">Cabin</Link>
+          </li>
+          <li className={isOpen ? "fade" : ""}>
+            <Link to="/History">History</Link>
+          </li>
+          <li className={isOpen ? "fade" : ""}>
+            <button className="btn font-bold"><Link to="/Login">Login</Link></button>
           </li>
           <li className={isOpen ? "fade" : ""}>
             <div className="container">
