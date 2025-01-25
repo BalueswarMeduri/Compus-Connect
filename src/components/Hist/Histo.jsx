@@ -1,13 +1,28 @@
-import React from "react";
+import React , {useEffect , useState} from "react";
+import { getUserEmails } from "@/connecting/connecting";
 
 const Histo = () => {
-  const historyData = [
-    { date: "2025-01-20", problem: "Issue with campus wifi connectivity." },
-    { date: "2025-01-22", problem: "Request for better lighting in the library." },
-    { date: "2025-01-23", problem: "Concern about noisy construction during exams." },
-  ];
 
-  return (
+  const [loading, setLoading] = useState(true);
+  const [historyData, setHistoryData] = useState(true);
+
+    useEffect(() => {
+
+        const fetchDetails = async () => {
+            setLoading(true);
+            await getUserEmails()
+                .then((response) => {
+                    setHistoryData(response.emails);
+                })
+                .catch((error) => {})
+                .finally(() => {
+                    setLoading(false);
+                });
+        };
+        fetchDetails();
+    }, []);
+
+  if(!loading) return (
     <div className="min-h-screen flex items-center justify-center bg-[var(--black)] text-[var(--white)] p-6">
       <div className="w-full max-w-4xl bg-[var(--darkgrey)] p-6 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold mb-6 text-center ">History</h1>
@@ -27,8 +42,8 @@ const Histo = () => {
                     index % 2 === 0 ? "bg-[var(--darkgrey)]" : "bg-[var(--grey)]"
                   }`}
                 >
-                  <td className="px-4 py-2">{entry.date}</td>
-                  <td className="px-4 py-2">{entry.problem}</td>
+                  <td className="px-4 py-2">{entry.createdAt.slice(0,10)}</td>
+                  <td className="px-4 py-2">{entry.body}</td>
                 </tr>
               ))}
             </tbody>

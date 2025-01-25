@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import './Navbar.css'
-import image from '../../assets/cpc.png';
+import './Navbar.css';
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "@/store/authSlice";
 
 const Navbar = () => {
+  const status = useSelector((state) => state.auth.status);
   const [isOpen, setIsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const dispatch = useDispatch();
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -19,28 +22,31 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <div className="logo">
+        <div className="logo ml-0 mr-auto">
           {/* <img src={image} alt="" /> */}
           <h1><span className="text-[var(--green)] font-medium">Campus</span>Connect </h1>
         </div>
-        <ul className={`nav-links ${isOpen ? "open" : ""}`}>
-          <li className={isOpen ? "fade" : ""}>
+        <ul className={`nav-links ${isOpen ? "open" : ""} `}>
+          <li className={`${isOpen ? "fade" : ""} ${status ? "hidden" : ""}`} onClick={handleToggle}>
             <Link to="/">Home</Link>
           </li>
-          <li className={isOpen ? "fade" : ""}>
+          <li className={`${isOpen ? "fade" : ""} ${status ? "hidden" : ""}`} onClick={handleToggle}>
             <Link to="/About">About</Link>
           </li>
-          <li className={isOpen ? "fade" : ""}>
+          <li className={`${isOpen ? "fade" : ""} ${!status ? "hidden" : ""}`} onClick={handleToggle}>
             <Link to="/Problem">Problem</Link>
           </li>
-          <li className={isOpen ? "fade" : ""}>
-            <Link to="/CabinFinder">Cabin</Link>
+          <li className={`${isOpen ? "fade" : ""} ${!status ? "hidden" : ""}`} onClick={handleToggle}>
+            <Link to="/CabinFinder">Cabins</Link>
           </li>
-          <li className={isOpen ? "fade" : ""}>
+          <li className={`${isOpen ? "fade" : ""} ${!status ? "hidden" : ""}`} onClick={handleToggle}>
             <Link to="/History">History</Link>
           </li>
-          <li className={isOpen ? "fade" : ""}>
+          <li className={`${isOpen ? "fade" : ""} ${status ? "hidden" : ""}`} onClick={handleToggle}>
             <button className="btn font-bold"><Link to="/Login">Login</Link></button>
+          </li>
+          <li className={`${isOpen ? "fade" : ""} ${!status ? "hidden" : ""}`} onClick={()=> {dispatch(logout()) ; handleToggle}}>
+            <button className="btn font-bold"><Link to="/Login">Logout</Link></button>
           </li>
           <li className={isOpen ? "fade" : ""}>
             <div className="container">

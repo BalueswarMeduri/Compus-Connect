@@ -3,15 +3,20 @@ import { Button } from "@/components/ui/button";
 import image from "@/assets/auth.svg";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import { login } from "@/store/authSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
 
 const Login = () => {
+
+  const dispatch = useDispatch();
+  
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        console.log(tokenResponse);
-
         const response = await axios.post(
-          "/api/v1/user/get-started",
+          "http://localhost:8000/api/v1/user/get-started",
           { token: tokenResponse?.access_token },
           {
             headers: {
@@ -19,12 +24,9 @@ const Login = () => {
             },
           }
         );
-        console.log("Login successful:", response.data);
+        dispatch(login(response.data));
       } catch (error) {
-        console.error(
-          "Error during login:",
-          error.response?.data || error.message
-        );
+        toast.error(error.response?.data?.message || error.message)
       }
     },
   });

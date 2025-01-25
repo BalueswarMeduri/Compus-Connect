@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import { getUserEmails } from "@/connecting/connecting";
+import React, { useEffect, useState } from "react";
 
 const Cabintable = () => {
     const [searchTerm, setSearchTerm] = useState("");
+
     const problems = [
         { lang: "1", duration: "Prof. Siva Sankar Y", video: "sivasankar.y@srmap.edu.in ", documentation: "New Academic Building, second floor, cabin number 3" },
         { lang: "2", duration: "Prof. Jiji C V", video: "jiji.c@srmap.edu.in", documentation: "New Academic Building, 708" },
@@ -25,10 +27,10 @@ const Cabintable = () => {
             .some(value => value.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
-    return (
+    if(!loading) return (
         <>
             <div className="pt-40 px-5">
-                <div className="text-2xl font-bold text-center mb-5">Cabins</div>
+                <div className="text-4xl font-bold text-center mb-5">Cabin Finder</div>
                 <div className="mb-5 flex justify-end">
                     <input
                         type="text"
@@ -39,9 +41,9 @@ const Cabintable = () => {
                     />
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full border-separate border-spacing-1">
-                        <thead className="bg-black ">
-                            <tr>
+                    <table className="min-w-full border-separate border-spacing-1 ">
+                        <thead className=" bg-gray-500">
+                            <tr className="">
                                 <th className="py-3 px-4 text-left font-semibold text-xl">S.No</th>
                                 <th className="py-3 px-4 text-left font-semibold text-xl">Name</th>
                                 <th className="py-3 px-4 font-semibold text-xl">Emails</th>

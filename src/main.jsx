@@ -10,6 +10,9 @@ import CabinFinder from "./Pages/CabinFinder";
 import About from "./Pages/About";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Hist from "./Pages/Hist";
+import store from "./store/store";
+import { Provider } from "react-redux";
+import Protected from "./components/AuthLayout";
 
 const router = createBrowserRouter([
   {
@@ -18,27 +21,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/login",
-        element: <Login />,
+        element: <Protected authentication={false}><Login /></Protected>,
       },
       {
         path: "/",
-        element: <Home />,
+        element: <Protected authentication={false}><Home /></Protected>,
       },
       {
         path: "/Problem",
-        element: <Problem />,
+        element: <Protected ><Problem /></Protected>,
       },
       {
         path: "/CabinFinder",
-        element: <CabinFinder />,
+        element: <Protected><CabinFinder /> </Protected>,
       },
       {
         path: "/About",
-        element: <About />,
+        element: <Protected authentication={false}><About /></Protected>,
       },
       {
         path: "/History",
-        element: <Hist />,
+        element: <Protected><Hist /></Protected>,
       },
     ],
   },
@@ -46,8 +49,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <GoogleOAuthProvider clientId="206695336293-47kff57p781b5o3pc7vh68bkrkdiq0je.apps.googleusercontent.com">
-      <RouterProvider router={router} />
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID}>
+      <Provider store={store} >
+        <RouterProvider router={router} />
+      </Provider>
     </GoogleOAuthProvider>
   </StrictMode>
 );
