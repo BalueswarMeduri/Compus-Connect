@@ -27,7 +27,7 @@ const Cabintable = () => {
             .some(value => value.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
-    if(!loading) return (
+     return (
         <>
             <div className="pt-40 px-5">
                 <div className="text-4xl font-bold text-center mb-5">Cabin Finder</div>
